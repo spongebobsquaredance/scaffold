@@ -1,7 +1,7 @@
 {
   "name": "scaffold",
   "version": "0.0.0",
-  "description": "Build system and file structure for quick project start-up.",
+  "description": "Gulp build and file structure for quick project start-up",
   "repository": {
     "type": "git",
     "url": "https://github.com/spongebobsquaredance/scaffold.git"
