@@ -1,28 +1,33 @@
 // ----- Import Sass Partials ----- //
 
 
-/* _____ Utility _____ */
+// ----- Utility ----- //
 
 // Eric Meyer CSS Reset
-@import 'meyer-reset';
+@import '1_utility/meyer-reset';
 
 // or... Normalize
-// @import 'normalize';
+// @import '1_utility/normalize';
 
-@import 'variables';
-
-
-/* _____ Fonts _____ */
-@import 'fonts';
+@import '1_utility/variables';
 
 
-/* _____ Pieces _____ */
+// ----- Text Styles ----- //
+@import '2_text-styles/fonts';
+@import '2_text-styles/typographic-scale';
 
 
-/* _____ Components _____ */
+// ----- Pieces ----- //
+// @import '3_pieces/';
 
 
-/* _____ Regions _____ */
+// ----- Components ----- //
+// @import '4_components/';
 
 
-/* _____ Layouts _____ */
+// ----- Regions ----- //
+// @import '5_regions/';
+
+
+// ----- Layouts ----- //
+// @import '6_layouts/';
