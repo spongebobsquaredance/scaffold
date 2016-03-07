@@ -19,10 +19,12 @@
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-cssmin": "^0.1.7",
+    "gulp-flatten": "^0.2.0",
     "gulp-imagemin": "^2.4.0",
     "gulp-include": "^2.1.0",
     "gulp-jsmin": "^0.1.5",
     "gulp-livereload": "^3.8.1",
+    "gulp-rename": "^1.2.2",
     "gulp-ruby-sass": "^2.0.6",
     "gulp-watch": "^4.3.5"
   }
