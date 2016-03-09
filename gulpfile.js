@@ -7,6 +7,7 @@ var jsmin = require('gulp-jsmin');
 var rename = require('gulp-rename');
 var imgmin = require('gulp-imagemin');
 var flatten = require('gulp-flatten');
+var runSequence = require('run-sequence');
 
 // Clean build folder with del
 gulp.task('clean:build', function() {
@@ -28,30 +29,24 @@ gulp.task('includes', function() {
 gulp.task('sass', function() {
 	return sass('src/styles/sass/screen.scss')
 	.on('error', sass.logError)
+	.pipe(cssmin())
+	.pipe(rename({suffix: '.min'}))
 	.pipe(gulp.dest('src/styles/css'));
 });
 
 // Minify images
 gulp.task('imgmin', function () {
 	gulp.src('src/imgs/*')
-		.pipe(cssmin())
+		.pipe(imgmin())
 		.pipe(gulp.dest('src/imgs/*'));
-});
-
-// Minify CSS
-gulp.task('cssmin', function () {
-	gulp.src('src/styles/css/*.css')
-		.pipe(cssmin())
-		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest('src/styles/css'));
 });
 
 // Minify JS
 gulp.task('jsmin', function () {
-	gulp.src('src/scripts/*.js')
+	gulp.src('src/scripts/main.js')
 		.pipe(jsmin())
 		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest('src/scripts/js'));
+		.pipe(gulp.dest('src/scripts'));
 });
 
 // Copy HTML Files
@@ -65,7 +60,7 @@ gulp.task('copy-html', function() {
 gulp.task('copy-css', function() {
 	return gulp.src('src/styles/css/*.min.css')
 		.pipe(flatten())
-  		.pipe(gulp.dest('build/css'));
+  		.pipe(gulp.dest('build/styles/css'));
 });
 
 // Copy Minified JS
@@ -85,13 +80,15 @@ gulp.task('copy-imgs', function() {
 // Watch task
 gulp.task('watch', function() {
 	gulp.watch('src/includes/**/*.html', ['includes']);
-	gulp.watch('src/styles/sass/**/*.scss', ['sass', 'cssmin']);
+	gulp.watch('src/styles/sass/**/*.scss', ['sass']);
 	gulp.watch('src/scripts/*.js', ['jsmin']);
 	gulp.watch('src/imgs/*', ['imgmin']);
 });
 
-// Default Gulp task
+// Default Gulp task to monitor and update src folder files on change
 gulp.task('default', ['watch']);
 
-// Build task
-gulp.task('build', ['clean:build', 'copy-html', 'copy-css', 'copy-js', 'copy-imgs']);
+// Run to update build folder files
+gulp.task('build', function() {
+  runSequence('clean:build', ['copy-html', 'copy-css', 'copy-js', 'copy-imgs']);
+});
